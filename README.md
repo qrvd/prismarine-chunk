@@ -52,116 +52,116 @@ setting and getting block light, type, biome, entity and block entity data.
 
 # API
 
-## Chunk
+## ChunkColumn
 
-#### Chunk(initData: { minY?: number, worldHeight?: number })
+#### ChunkColumn(initData: { minY?: number, worldHeight?: number })
 
 Build a new chunk. initData is only for 1.18+, and if not given or null the world will default to an old-style 0-256 world.
 
-#### Chunk.initialize(iniFunc)
+#### ChunkColumn.initialize(iniFunc)
 
 Initialize a chunk.
 * `iniFunc` is a function(x,y,z) returning a prismarine-block.
 
 That function is faster than iterating and calling the setBlock* manually. It is useful to generate a whole chunk and load a whole chunk.
 
-#### Chunk.version
+#### ChunkColumn.version
 
 returns the version the chunk loader was called with
 
-#### Chunk.section
+#### ChunkColumn.section
 
 returns ChunkSection class for version
 
-#### Chunk.getBlock(pos)
+#### ChunkColumn.getBlock(pos)
 
 Get the [Block](https://github.com/PrismarineJS/prismarine-block) at [pos](https://github.com/andrewrk/node-vec3)
 
 `.entity` will have entity NBT data for this block, if it exists
 
-#### Chunk.setBlock(pos,block)
+#### ChunkColumn.setBlock(pos,block)
 
 Set the [Block](https://github.com/PrismarineJS/prismarine-block) at [pos](https://github.com/andrewrk/node-vec3)
 
 Set `.entity` property with NBT data for this block to load block entity data for the block
 
-#### Chunk.getBlockType(pos)
+#### ChunkColumn.getBlockType(pos)
 
 Get the block type at `pos`
 
-#### Chunk.getBlockStateId(pos)
+#### ChunkColumn.getBlockStateId(pos)
 
 Get the block state id at `pos`
 
-#### Chunk.getBlockData(pos)
+#### ChunkColumn.getBlockData(pos)
 
 Get the block data (metadata) at `pos`
 
-#### Chunk.getBlockLight(pos)
+#### ChunkColumn.getBlockLight(pos)
 
 Get the block light at `pos`
 
-#### Chunk.getSkyLight(pos)
+#### ChunkColumn.getSkyLight(pos)
 
 Get the block sky light at `pos`
 
-#### Chunk.getBiome(pos)
+#### ChunkColumn.getBiome(pos)
 
 Get the block biome id at `pos`
 
-#### Chunk.getBiomeColor(pos)
+#### ChunkColumn.getBiomeColor(pos)
 
 Get the block biome color at `pos`. Does nothing for PC.
 
-#### Chunk.setBlockStateId(pos, stateId)
+#### ChunkColumn.setBlockStateId(pos, stateId)
 
 Set the block type `stateId` at `pos`
 
-#### Chunk.setBlockType(pos, id)
+#### ChunkColumn.setBlockType(pos, id)
 
 Set the block type `id` at `pos`
 
-#### Chunk.setBlockData(pos, data)
+#### ChunkColumn.setBlockData(pos, data)
 
 Set the block `data` (metadata) at `pos`
 
-#### Chunk.setBlockLight(pos, light)
+#### ChunkColumn.setBlockLight(pos, light)
 
 Set the block `light` at `pos`
 
-#### Chunk.setSkyLight(pos, light)
+#### ChunkColumn.setSkyLight(pos, light)
 
 Set the block sky `light` at `pos`
 
-#### Chunk.setBiome(pos, biome)
+#### ChunkColumn.setBiome(pos, biome)
 
 Set the block `biome` id at `pos`
 
-#### Chunk.setBiomeColor(pos, biomeColor)
+#### ChunkColumn.setBiomeColor(pos, biomeColor)
 
 Set the block `biomeColor` at `pos`. Does nothing for PC.
 
-#### Chunk.getBlockEntity(pos)
+#### ChunkColumn.getBlockEntity(pos)
 
 Returns the block entity data at position if it exists
 
-#### Chunk.setBlockEntity(pos, nbt)
+#### ChunkColumn.setBlockEntity(pos, nbt)
 
 Sets block entity data at position
 
-#### Chunk.loadBlockEntities(nbt)
+#### ChunkColumn.loadBlockEntities(nbt)
 
 Loads an array of NBT data into the chunk column
 
-#### Chunk.toJson()
+#### ChunkColumn.toJson()
 
 Returns the chunk as json
 
-#### Chunk.fromJson(j)
+#### ChunkColumn.fromJson(j)
 
 Load chunk from json
 
-#### Chunk.sections
+#### ChunkColumn.sections
 
 Available for pc chunk implementation.
 Array of y => section
@@ -171,35 +171,35 @@ is in this section.
 
 ### pc
 
-#### Chunk.getMask()
+#### ChunkColumn.getMask()
 
 Return the chunk bitmap 0b0000_0000_0000_0000(0x0000) means no chunks are set while 0b1111_1111_1111_1111(0xFFFF) means all chunks are set
 
-#### Chunk.dump()
+#### ChunkColumn.dump()
 
 Returns the chunk raw data
 
-#### Chunk.load(data, bitmap = 0xFFFF, skyLightSent = true, fullChunk = true)
+#### ChunkColumn.load(data, bitmap = 0xFFFF, skyLightSent = true, fullChunk = true)
 
 Load raw `data` into the chunk
 
-#### Chunk.dumpLight()
+#### ChunkColumn.dumpLight()
 
 Returns the chunk raw light data (starting from 1.14)
 
-#### Chunk.loadLight(data, skyLightMask, blockLightMask, emptySkyLightMask = 0, emptyBlockLightMask = 0)
+#### ChunkColumn.loadLight(data, skyLightMask, blockLightMask, emptySkyLightMask = 0, emptyBlockLightMask = 0)
 
 Load lights into the chunk (starting from 1.14)
 
-#### Chunk.loadParsedLight (skyLight, blockLight, skyLightMask, blockLightMask, emptySkyLightMask, emptyBlockLightMask)
+#### ChunkColumn.loadParsedLight (skyLight, blockLight, skyLightMask, blockLightMask, emptySkyLightMask, emptyBlockLightMask)
 
 Load lights into the chunk (starting from 1.17)
 
-#### Chunk.dumpBiomes()
+#### ChunkColumn.dumpBiomes()
 
 Returns the biomes as an array (starting from 1.15)
 
-#### Chunk.loadBiomes(biomes)
+#### ChunkColumn.loadBiomes(biomes)
 
 Load biomes into the chunk (starting from 1.15)
 
