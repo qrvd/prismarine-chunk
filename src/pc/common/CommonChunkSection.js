@@ -1,19 +1,13 @@
 const neededBits = require('./neededBits')
+
+const utils = require("../../utils");
+
 const constants = require('./constants')
 const varInt = require('./varInt')
 
-function isValidPos (pos) {
-  return (pos.x >= 0 && pos.x < 16) &&
-    (pos.y >= 0 && pos.y < 16) &&
-    (pos.z >= 0 && pos.z < 16) &&
-    pos.x === Math.floor(pos.x) &&
-    pos.y === Math.floor(pos.y) &&
-    pos.z === Math.floor(pos.z);
-}
-
 function getBlockIndex (pos) {
-  if (!isValidPos(pos)) {
-    throw new Error('invalid position');
+  if (!utils.isValidSectionPos(pos)) {
+    throw new Error(`invalid position (${pos?.x}, ${pos?.y}, ${pos?.z})`);
   }
   return (pos.y << 8) | (pos.z << 4) | pos.x
 }
@@ -84,6 +78,10 @@ module.exports = BitArray => {
     }
 
     setBlock (pos, stateId) {
+      if (!utils.isValidSectionPos(pos)) {
+        throw new Error(`invalid position (${pos?.x}, ${pos?.y}, ${pos?.z})`);
+      }
+
       const blockIndex = getBlockIndex(pos)
       let palettedIndex
       if (this.palette !== null) {

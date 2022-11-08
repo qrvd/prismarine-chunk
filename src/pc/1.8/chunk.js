@@ -1,4 +1,7 @@
 const CommonChunkColumn = require('../common/CommonChunkColumn')
+
+const utils = require("../../utils");
+
 const Section = require('./section')
 const Vec3 = require('vec3').Vec3
 
@@ -73,6 +76,10 @@ module.exports = (registry) => {
     }
 
     setBlock (pos, block) {
+      if (!utils.isValidColumnPos(pos)) {
+        throw new Error(`invalid position (${pos?.x}, ${pos?.y}, ${pos?.z})`);
+      }
+
       if (exists(block.type)) { this.setBlockType(pos, block.type) }
       if (exists(block.metadata)) { this.setBlockData(pos, block.metadata) }
       if (exists(block.biome)) { this.setBiome(pos, block.biome.id) }

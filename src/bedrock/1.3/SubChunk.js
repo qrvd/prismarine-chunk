@@ -1,4 +1,7 @@
 const PalettedStorage = require('../common/PalettedStorage')
+
+const utils = require("../../utils");
+
 const { StorageType } = require('../common/constants')
 const { getChecksum } = require('../common/util')
 const neededBits = require('../../pc/common/neededBits')
@@ -220,6 +223,10 @@ class SubChunk {
   }
 
   setBlock (l, x, y, z, block) {
+    if (!utils.isValidColumnPos(pos)) {
+      throw new Error(`invalid position (${pos?.x}, ${pos?.y}, ${pos?.z})`);
+    }
+
     if (l !== undefined) {
       this.setBlockStateId(l, x, y, z, block.stateId)
     } else {

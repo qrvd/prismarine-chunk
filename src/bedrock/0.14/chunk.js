@@ -1,5 +1,7 @@
 'use strict'
 
+
+const utils = require("../../utils")
 const Vec3 = require('vec3').Vec3
 const w = 16
 const l = 16
@@ -102,6 +104,10 @@ class Chunk {
   }
 
   setBlock (pos, block) {
+    if (!utils.isValidColumnPos(pos)) {
+      throw new Error(`invalid position (${pos?.x}, ${pos?.y}, ${pos?.z})`);
+    }
+
     if (exists(block.type)) { this.setBlockType(pos, block.type) }
     if (exists(block.metadata)) { this.setBlockData(pos, block.metadata) }
     if (exists(block.biome)) { this.setBiome(pos, block.biome.id) }

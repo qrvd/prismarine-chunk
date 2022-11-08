@@ -1,4 +1,7 @@
 const BitArray = require('../common/BitArray')
+
+const utils = require("../../utils");
+
 const neededBits = require('../common/neededBits')
 const constants = require('../common/constants')
 const varInt = require('../common/varInt')
@@ -92,6 +95,10 @@ class ChunkSection {
   }
 
   setBlock (pos, stateId) {
+    if (!utils.isValidSectionPos(pos)) {
+      throw new Error(`invalid position (${pos?.x}, ${pos?.y}, ${pos?.z})`);
+    }
+
     const blockIndex = getBlockIndex(pos)
     let palettedIndex
     if (this.palette !== null) {

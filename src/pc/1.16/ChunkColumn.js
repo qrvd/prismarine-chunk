@@ -1,4 +1,7 @@
 const SmartBuffer = require('smart-buffer').SmartBuffer
+
+const utils = require("../../utils");
+
 const BitArray = require('../common/BitArrayNoSpan')
 const ChunkSection = require('../common/CommonChunkSection')(BitArray)
 const CommonChunkColumn = require('../common/CommonChunkColumn')
@@ -77,6 +80,10 @@ module.exports = (Block, mcData) => {
     }
 
     setBlock (pos, block) {
+      if (!utils.isValidColumnPos(pos)) {
+        throw new Error(`invalid position (${pos?.x}, ${pos?.y}, ${pos?.z})`);
+      }
+
       if (typeof block.stateId !== 'undefined') {
         this.setBlockStateId(pos, block.stateId)
       }

@@ -1,4 +1,7 @@
 const { Vec3 } = require('vec3')
+
+const utils = require("../../utils");
+
 const Stream = require('../common/Stream')
 const nbt = require('prismarine-nbt')
 
@@ -51,6 +54,10 @@ class CommonChunkColumn {
   }
 
   setBlock (pos, block) {
+    if (!utils.isValidColumnPos(pos)) {
+      throw new Error(`invalid position (${pos?.x}, ${pos?.y}, ${pos?.z})`);
+    }
+
     const Y = pos.y >> 4
     let sec = this.sections[this.co + Y]
     if (!sec) {
